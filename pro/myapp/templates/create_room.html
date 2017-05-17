@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %} - For Class - Create Room {% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script type="text/javascript">
+    $(function() {
+        $( "#select" ).selectmenu();
+    });
+    </script>
+{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Create Account</h1>
+</div>
+<div class="col-md-8">
+    {{ wtf.quick_form(form) }}
+</div>
+{% endblock %}

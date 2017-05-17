@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %} - For Class - Home {% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script type="text/javascript">
+    </script>
+{% endblock %}
+
+{% block page_content %}
+
+<div class="page-header">
+    {% if current_user.is_authenticated %}
+    <h1>Hello {{ current_user.name }} !</h1>
+    {% else %}
+    <h1>Maybe you want to do something I don't know...</h1>
+    <h1>You can tell me!</h1>
+    {% endif %}
+</div>
+
+<div class="container">
+    <nav>
+        <ul class="pager">
+            <li class="previous"><a href="{{url_for('main.index2', offset=left)}}">Previous</a></li>
+            <li><a href="#">{{today}}</a></li>
+            <li class="next"><a href="{{url_for('main.index2', offset=right)}}">Next</a></li>
+        </ul>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class='table table-hover'>
+                <caption>
+                Green for Unused,
+                Yellow for Busy.
+                </caption>
+                <thead>
+                    <tr>
+                        <th class="col-md-1">#</th>
+                        <th class="col-md-2">Room Name</th>
+                        <th class="col-md-1">1</th>
+                        <th class="col-md-1">2</th>
+                        <th class="col-md-1">3</th>
+                        <th class="col-md-1">4</th>
+                        <th class="col-md-1">5</th>
+                        <th class="col-md-1">6</th>
+                        <th class="col-md-1">Type</th>
+                        <th class="col-md-1">Capacity</th>
+                        <th class="col-md-1">Operation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for room in rooms %}
+                    <tr>
+                        <th scope="row">{{loop.index}}</th>
+                        <td>{{room.name}}</td>
+                        {% for s in room.seg %}
+                            {% if s == 1 %}
+                            <td style="background-color: yellow;"></td>
+                            {% else %}
+                            <td style="background-color: lime;"></td>
+                            {% endif %}
+                        {% endfor %}
+                        <td>{{Type[room.tpe]}}</td>
+                        <td>{{room.num}} 人</td>
+                        <td><a href="{{url_for('main.create_request', id=room.id)}}">use</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

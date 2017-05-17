@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %} - For Class - Request Management {% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script type="text/javascript">
+    $(function() {
+        $( "#date" ).datepicker({
+            dateFormat: "yy-mm-dd",
+            appendText: "yyyy-mm-dd"
+        });
+    });
+    </script>
+{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Approve Use of Room</h1>
+</div>
+<div class="col-md-12">
+    <table class='table table-hover'>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Room Name</th>
+                <th>Date</th>
+                <th>Segment</th>
+                <th>Reason</th>
+                <th>Stamp</th>
+                <th>Operation</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for request in requests %}
+            <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{request.room.name}}</td>
+                <td>{{request.date}}</td>
+                <td>{{request.seg}}</td>
+                <td>{{request.reason}}</td>
+                <td>{{request.stamp.isoformat(' ')}}</td>
+                <td><a href="{{url_for('.approve_agree', id=request.id)}}">agree</a> <a href="{{url_for('.approve_disagree', id=request.id)}}">disagree</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

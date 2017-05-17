@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %} - For Class - Edit Account {% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script type="text/javascript">
+    $(function() {
+        $( "#select" ).selectmenu();
+        $("#acc_num").attr('disabled', true);
+    });
+    </script>
+{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Edit Account</h1>
+</div>
+<div class="col-md-8">
+    {{ wtf.quick_form(form) }}
+</div>
+{% endblock %}

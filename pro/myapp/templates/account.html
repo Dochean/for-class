@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %} - For Class - Account Info {% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script type="text/javascript">
+    $(function() {
+        $( "#date" ).datepicker({
+            dateFormat: "yy-mm-dd",
+            appendText: "yyyy-mm-dd"
+        });
+    });
+    </script>
+{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Manage Account <a role='button' class="btn btn-default pull-right" href="{{url_for('main.create_account')}}">Create Account</a></h1>
+</div>
+<div class="col-md-12">
+    <table class='table table-hover'>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Account Number</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Operation</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{user.acc_num}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.role.actor}}</td>
+                <td><a href="{{url_for('.edit_account', id=user.id)}}">edit</a> <a href="{{url_for('.delete_account', id=user.id)}}">delete</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

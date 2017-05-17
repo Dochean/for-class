@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %} - For Class - Room Info {% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script type="text/javascript">
+    $(function() {
+        $( "#date" ).datepicker({
+            dateFormat: "yy-mm-dd",
+            appendText: "yyyy-mm-dd"
+        });
+    });
+    </script>
+{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Manage Use of Room</h1>
+</div>
+<div class="col-md-12">
+    <table class='table table-hover'>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Room Name</th>
+                <th>Date</th>
+                <th>Segment</th>
+                <th>Reason</th>
+                <th>Operation</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for use in uses %}
+            <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{use.room.name}}</td>
+                <td>{{use.date}}</td>
+                <td>{{use.seg}}</td>
+                <td>{{use.reason}}</td>
+                <td><a href="{{url_for('.delete_use', id=use.id)}}">delete</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
